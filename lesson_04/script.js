@@ -28,7 +28,6 @@ if ( addExpenses ) {
 let getExpensesMonth = function () {
     return amount1 - amount2;
 };
-getExpensesMonth();
 
 // Накопления за месяц (Доходы минус расходы)
 let getAccumulatedMonth = function () {
@@ -40,11 +39,9 @@ let accumulatedMonth = getAccumulatedMonth();
 
 // За сколько месяцев будет достигнута цель
 let getTargetMonth = function () {
-    let target = mission / accumulatedMonth;
-    console.log( 'За сколько месяцев будет достигнута цель: ', Math.floor(target) );
-    return Math.floor( target );
+    return mission / accumulatedMonth;
 };
-getTargetMonth();
+console.log( 'За сколько месяцев будет достигнута цель: ', getTargetMonth() );
 
 // Значения месячного накопления 
 let budgetDay = getAccumulatedMonth() / 30;
