@@ -39,9 +39,8 @@ let accumulatedMonth = getAccumulatedMonth();
 
 // За сколько месяцев будет достигнута цель
 let getTargetMonth = function () {
-    return mission / accumulatedMonth;
+    return Math.floor( mission / accumulatedMonth );
 };
-console.log( 'За сколько месяцев будет достигнута цель: ', getTargetMonth() );
 
 // Значения месячного накопления 
 let budgetDay = getAccumulatedMonth() / 30;
@@ -62,6 +61,7 @@ console.log( getStatusIncome() );
 
 
 // Консоль Логи
+console.log( 'За сколько месяцев будет достигнута цель: ', getTargetMonth() );
 console.log( 'Период равен ' + period + ' месяцев' );
 console.log( 'Цель заработать ' + mission + ' рублей/долларов/гривен/юани' );
 console.log( addExpenses.toLowerCase().split( ', ' ) );
