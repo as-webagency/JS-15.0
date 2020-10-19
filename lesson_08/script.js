@@ -80,10 +80,10 @@ let appData = {
     },
     // За сколько месяцев будет достигнута цель
     getTargetMonth: function () {
-        let target = appData.mission / appData.accumulatedMonth;
+        let target = appData.mission / appData.getBudget();
         target = Math.floor( target );
 
-        if ( target > 0 || -target ) {
+        if ( target > 0 ) {
             return ( 'Цель будет достигнута за ' + target + ' месяцев');
         } else {
             return ( 'Цель не будет достигнута' );
@@ -103,7 +103,6 @@ let appData = {
     },
     // Есть ли депозит в банке
     getInfoDeposit: function () {
-
         if ( appData.deposit ) {
             do {
                 appData.percentDeposit = prompt( 'Какой годовой процент', 10 );
@@ -111,7 +110,6 @@ let appData = {
             } while ( isNaN( appData.moneyDeposit ) || appData.moneyDeposit === '' || appData.moneyDeposit === null || 
             isNaN( appData.percentDeposit ) || appData.percentDeposit === '' || appData.percentDeposit === null );
         } 
-
     },
     // Считаем деньги за период
     getCalcSavedMoney: function () {
@@ -122,7 +120,7 @@ let appData = {
 // Вызов функции через AppData
 appData.asking();
 let expensesMonth = appData.getExpensesMonth(),
-    accumulatedMonth = appData.getBudget(),
+    dataBudget = appData.getBudget(),
     targetMonth = appData.getTargetMonth(),
     statusIncome = appData.getStatusIncome(),
     infoDeposit = appData.getInfoDeposit(),
@@ -134,6 +132,6 @@ console.log( targetMonth );
 console.log( appData.getStatusIncome() );
 
 // Вывести все свойства и значения для объекта appData
-for (let key in appData) {
-    console.log( 'Наша программа ' + key + ' включает в себя данные: ' + appData[key] );
-}
+// for (let key in appData) {
+//     console.log( 'Наша программа ' + key + ' включает в себя данные: ' + appData[key] );
+// }
