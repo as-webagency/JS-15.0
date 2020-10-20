@@ -66,7 +66,7 @@ let appData = {
     },
     // Cуммa всех обязательных расходов за месяц
     getExpensesMonth: function () {
-        for (let key in appData.expenses) {
+        for ( let key in appData.expenses ) {
             appData.expensesMonth += +appData.expenses[key];
         }
     },
@@ -80,8 +80,7 @@ let appData = {
     },
     // За сколько месяцев будет достигнута цель
     getTargetMonth: function () {
-        let target = appData.mission / appData.getBudget();
-        target = Math.floor( target );
+        let target = Math.floor( appData.mission / appData.budgetMonth );
 
         if ( target > 0 ) {
             return ( 'Цель будет достигнута за ' + target + ' месяцев');
@@ -119,19 +118,19 @@ let appData = {
 
 // Вызов функции через AppData
 appData.asking();
-let expensesMonth = appData.getExpensesMonth(),
-    dataBudget = appData.getBudget(),
-    targetMonth = appData.getTargetMonth(),
-    statusIncome = appData.getStatusIncome(),
-    infoDeposit = appData.getInfoDeposit(),
-    calcSavedMoney = appData.getCalcSavedMoney();
+appData.getExpensesMonth();
+appData.getBudget();
+appData.getTargetMonth();
+appData.getStatusIncome();
+appData.getInfoDeposit();
+appData.getCalcSavedMoney();
 
 // Консоль Логи
 console.log( 'Расходы за месяц: ', appData.expensesMonth );
-console.log( targetMonth );
+console.log( appData.getTargetMonth() );
 console.log( appData.getStatusIncome() );
 
 // Вывести все свойства и значения для объекта appData
-// for (let key in appData) {
-//     console.log( 'Наша программа ' + key + ' включает в себя данные: ' + appData[key] );
-// }
+for (let key in appData) {
+    console.log( 'Наша программа ' + key + ' включает в себя данные: ' + appData[key] );
+}
