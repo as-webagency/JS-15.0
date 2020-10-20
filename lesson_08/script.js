@@ -50,7 +50,7 @@ let appData = {
             appData.deposit = confirm( 'Есть ли у вас депозит в банке?' ); // Депозит
 
         // Функция возвращает сумму всех обязательных расходов за месяц
-        for (let i = 0; i < 2; i++) {
+        for ( let i = 0; i < 2; i++ ) {
             let expensesItem, expensesCost;
 
             do {
@@ -131,6 +131,6 @@ console.log( appData.getTargetMonth() );
 console.log( appData.getStatusIncome() );
 
 // Вывести все свойства и значения для объекта appData
-for (let key in appData) {
+for ( let key in appData ) {
     console.log( 'Наша программа ' + key + ' включает в себя данные: ' + appData[key] );
 }
