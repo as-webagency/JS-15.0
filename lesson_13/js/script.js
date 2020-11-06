@@ -101,15 +101,19 @@ let appData = {
             btnPlusIncome.style.display = 'block';
             btnPlusExpenses.style.display = 'block';
         }
-            
-        if (incomeItems.length > 1) {
-            incomeItems[1].remove();
-            incomeItems[2].remove();
+
+        for (let i = 0; i < incomeItems.length; i++) {
+            const element = incomeItems[i];
+            if ( element === incomeItems[1] || element === incomeItems[2] ) {
+                incomeItems[i].remove();
+            }
         }
 
-        if (expensesItems.length > 1) {
-            expensesItems[1].remove();
-            expensesItems[2].remove();
+        for (let i = 0; i < expensesItems.length; i++) {
+            const element = expensesItems[i];
+            if ( element === expensesItems[1] || element === expensesItems[2] ) {
+                expensesItems[i].remove();
+            }
         }
 
         periodAmount.innerHTML = periodSelect.value = 1;
