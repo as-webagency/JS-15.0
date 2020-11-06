@@ -102,19 +102,19 @@ let appData = {
             btnPlusExpenses.style.display = 'block';
         }
 
-        for (let i = 0; i < incomeItems.length; i++) {
-            const element = incomeItems[i];
-            if ( element === incomeItems[1] || element === incomeItems[2] ) {
-                incomeItems[i].remove();
+        incomeItems.forEach( function ( item, index, array ) {
+            item.length = array[index];
+            if ( item === array[1] || item === array[2] ) {
+                array[index].remove();
             }
-        }
+        });
 
-        for (let i = 0; i < expensesItems.length; i++) {
-            const element = expensesItems[i];
-            if ( element === expensesItems[1] || element === expensesItems[2] ) {
-                expensesItems[i].remove();
+        expensesItems.forEach( function ( item, index, array ) {
+            item.length = array[index];
+            if ( item === array[1] || item === array[2] ) {
+                array[index].remove();
             }
-        }
+        });
 
         periodAmount.innerHTML = periodSelect.value = 1;
     },
