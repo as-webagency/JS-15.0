@@ -55,11 +55,11 @@ let appData = {
             cancelBtn.style.display = 'block';
         });
 
-        incomeItemsInputReset.forEach( function ( item ) {
+        document.querySelectorAll( '.income-items > input' ).forEach( function ( item ) {
             item.setAttribute( 'disabled', true );
         });
         
-        expensesItemsInputReset.forEach( function ( item ) {
+        document.querySelectorAll( '.expenses-items > input' ).forEach( function ( item ) {
             item.setAttribute( 'disabled', true );
         });
 
@@ -85,9 +85,32 @@ let appData = {
             cancelBtn.style.display = 'none';
         });
 
-        allInputs.forEach( function ( item ) {
+        document.querySelectorAll( 'input[type=text]' ).forEach( function ( item ) {
             item.value = '';
         });
+
+        document.querySelectorAll( '.income-items > input' ).forEach( function ( item ) {
+            item.removeAttribute( 'disabled', false );
+        });
+        
+        document.querySelectorAll( '.expenses-items > input' ).forEach( function ( item ) {
+            item.removeAttribute( 'disabled', false );
+        });
+
+        if ( cancelBtn.style.display === 'none' ) {
+            btnPlusIncome.style.display = 'block';
+            btnPlusExpenses.style.display = 'block';
+        }
+            
+        if (incomeItems.length > 1) {
+            incomeItems[1].remove();
+            incomeItems[2].remove();
+        }
+
+        if (expensesItems.length > 1) {
+            expensesItems[1].remove();
+            expensesItems[2].remove();
+        }
 
         periodAmount.innerHTML = periodSelect.value = 1;
     },
@@ -111,7 +134,7 @@ let appData = {
         let cloneExpensesItem = expensesItems[0].cloneNode( true ),
             inputsCloneValue = cloneExpensesItem.querySelectorAll( 'input' );
 
-        inputsCloneValue.forEach(function ( input ) {
+        inputsCloneValue.forEach( function ( input ) {
             input.value = '';
         });
 
@@ -126,7 +149,7 @@ let appData = {
         let cloneIncomeItem = incomeItems[0].cloneNode( true ),
             inputsCloneValue = cloneIncomeItem.querySelectorAll( 'input' );
 
-        inputsCloneValue.forEach(function ( input ) {
+        inputsCloneValue.forEach( function ( input ) {
             input.value = '';
         });
 
@@ -248,12 +271,12 @@ additionalExpensesItem.addEventListener( 'input', function () {
 // Пропускаем только числа
 placeholderSum.forEach(function ( item ) {
     item.addEventListener( 'input', function () {
-        item.value = item.value.replace(/[^0-9]/g, '');
+        item.value = item.value.replace( /[^0-9]/g, '' );
     });
 });
 
 depositPercent.addEventListener( 'input', function () {
-    depositPercent.value = depositPercent.value.replace(/[^0-9]/g, '');
+    depositPercent.value = depositPercent.value.replace( /[^0-9]/g, '' );
 });
 
 // События
