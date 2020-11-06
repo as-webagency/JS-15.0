@@ -27,7 +27,9 @@ const startBtn = document.getElementById( 'start' ),
     cancelBtn = document.getElementById( 'cancel' ),
     allInputs = document.querySelectorAll( 'input[type=text]' ),
     incomeItemsInputReset = document.querySelectorAll( '.income-items > input' ),
-    expensesItemsInputReset = document.querySelectorAll( '.expenses-items > input' );
+    expensesItemsInputReset = document.querySelectorAll( '.expenses-items > input' ),
+    placeholderNames = document.querySelectorAll( '[placeholder="Наименование"]' ),
+    placeholderSum = document.querySelectorAll( '[placeholder="Сумма"]' );
 
 let expensesItems = document.querySelectorAll( '.expenses-items' ),
     incomeItems = document.querySelectorAll( '.income-items' );
@@ -106,7 +108,12 @@ let appData = {
     },
     // Блок обязательных расходов
     addExpensesBlock: function () {
-        let cloneExpensesItem = expensesItems[0].cloneNode( true );
+        let cloneExpensesItem = expensesItems[0].cloneNode( true ),
+            inputsCloneValue = cloneExpensesItem.querySelectorAll( 'input' );
+
+        inputsCloneValue.forEach(function ( input ) {
+            input.value = '';
+        });
 
         expensesItems[0].parentNode.insertBefore( cloneExpensesItem, btnPlusExpenses );
         expensesItems = document.querySelectorAll( '.expenses-items' );
@@ -116,7 +123,12 @@ let appData = {
     },
     // Блок обязательных расходов
     addIncomeBlock: function () {
-        let cloneIncomeItem = incomeItems[0].cloneNode( true );
+        let cloneIncomeItem = incomeItems[0].cloneNode( true ),
+            inputsCloneValue = cloneIncomeItem.querySelectorAll( 'input' );
+
+        inputsCloneValue.forEach(function ( input ) {
+            input.value = '';
+        });
 
         incomeItems[0].parentNode.insertBefore( cloneIncomeItem, btnPlusIncome );
         incomeItems = document.querySelectorAll( '.income-items' );
@@ -220,6 +232,28 @@ salaryAmount.addEventListener( 'input', function () {
 // Пропускаем только числа
 salaryAmount.addEventListener( 'input', function () {
     salaryAmount.value = salaryAmount.value.replace( /[^0-9]/g, '' );
+});
+
+// Пропускаем только русские буквы, пробелы и знаки препинания
+placeholderNames.forEach(function ( item ) {
+    item.addEventListener( 'input', function () {
+        item.value = item.value.replace( /[^а-я\s\,\.\s\,\.]/, '' );
+    });
+});
+
+additionalExpensesItem.addEventListener( 'input', function () {
+    additionalExpensesItem.value = additionalExpensesItem.value.replace( /[^а-я\s\,\.]/, '' );
+});
+
+// Пропускаем только числа
+placeholderSum.forEach(function ( item ) {
+    item.addEventListener( 'input', function () {
+        item.value = item.value.replace(/[^0-9]/g, '');
+    });
+});
+
+depositPercent.addEventListener( 'input', function () {
+    depositPercent.value = depositPercent.value.replace(/[^0-9]/g, '');
 });
 
 // События
