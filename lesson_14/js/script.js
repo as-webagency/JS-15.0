@@ -283,7 +283,6 @@ AppData.prototype.calcPeriod = function () {
 
 // События
 AppData.prototype.eventListeners = function () {
-
     // Пропускаем только числа
     salaryAmount.addEventListener( 'input', function () {
         salaryAmount.value = salaryAmount.value.replace( /[^0-9]/g, '' );
@@ -314,6 +313,7 @@ AppData.prototype.eventListeners = function () {
     // События
     let startBind = this.start.bind( appData );
     startBtn.addEventListener( 'click', startBind  );
+    salaryAmount.addEventListener( 'keyup', this.check  );
     btnPlusExpenses.addEventListener( 'click', this.addExpensesBlock  );
     btnPlusIncome.addEventListener( 'click', this.addIncomeBlock  );
     periodSelect.addEventListener( 'input', function () {
@@ -323,4 +323,3 @@ AppData.prototype.eventListeners = function () {
 
 const appData = new AppData();
 appData.eventListeners();
-appData.check();

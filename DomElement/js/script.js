@@ -1,36 +1,32 @@
 'use strict';
 
-function DomElement( selector, height, width, background, fontSize ) {
+function DomElement( selector, height, width, background, fontSize, textInner ) {
     this.selector = selector;
     this.height = height;
     this.width = width;
     this.background = background;
     this.fontSize = fontSize;
+    this.textInner = textInner;
 }
 
 DomElement.prototype.createElem = function () {
-    this.selector = prompt( 'Укажите селектор', '' );
-
-    if ( this.selector === '.' ) {
+    if ( this.selector.charAt(0) === '.' ) {
         let div = document.createElement( 'div' );
-        div.className = 'selector';
-        div.textContent = prompt( 'Введите текст', '' );
-        div.style.height = prompt( 'Укажите высоту', '' ) + 'px';
-        div.style.width = prompt( 'Укажите ширину', '' ) + 'px';
-        div.style.background = prompt( 'Укажите фоновый цвет', '' );
-        div.style.fontSize = prompt( 'Укажите размер шрифта', '' ) + 'px';
+        div.classList.add( this.selector.substr(1) );
+        div.style.cssText = `
+            height: ${this.height}px;
+            width: ${this.width}px;
+            background-color: ${this.background};
+            font-size: ${this.fontSize}px;
+        `;
+        div.textContent = this.textInner;
         document.body.prepend(div);
-    } else if ( this.selector === '#' ) {
+    } else if ( this.selector.charAt(0) === '#' ) {
         let p = document.createElement( 'p' );
-        p.id = 'selector';
-        p.textContent = prompt( 'Введите текст', '' );
-        p.style.height = prompt( 'Укажите высоту', '' ) + 'px';
-        p.style.width = prompt( 'Укажите ширину', '' ) + 'px';
-        p.style.background = prompt( 'Укажите фоновый цвет', '' );
-        p.style.fontSize = prompt( 'Укажите размер шрифта', '' ) + 'px';
+        p.id = this.selector.substr(1);
         document.body.prepend(p);
     }
 };
 
-let domElement = new DomElement();
+let domElement = new DomElement( '.block', 150, 200, 'red', 30, 'hello world!!!' );
 domElement.createElem();
