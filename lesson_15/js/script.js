@@ -151,6 +151,16 @@ class AppData {
             inputsCloneValue = cloneExpensesItem.querySelectorAll( 'input' );
     
         inputsCloneValue.forEach( input => input.value = '' );
+        cloneExpensesItem.querySelectorAll( '[placeholder="Наименование"]' ).forEach( item => {
+            item.addEventListener( 'input', function () {
+                item.value = item.value.replace( /[^а-я\s\,\.\s\,\.]/, '' );
+            });
+        });
+        cloneExpensesItem.querySelectorAll( '[placeholder="Сумма"]' ).forEach( item => {
+            item.addEventListener( 'input', () => {
+                item.value = item.value.replace( /[^0-9]/g, '' );
+            });
+        });
     
         expensesItems[0].parentNode.insertBefore( cloneExpensesItem, btnPlusExpenses );
         expensesItems = document.querySelectorAll( '.expenses-items' );
@@ -164,7 +174,17 @@ class AppData {
             inputsCloneValue = cloneIncomeItem.querySelectorAll( 'input' );
     
         inputsCloneValue.forEach( input => input.value = '' );
-    
+        cloneIncomeItem.querySelectorAll( '[placeholder="Наименование"]' ).forEach( item => {
+            item.addEventListener( 'input', function () {
+                item.value = item.value.replace( /[^а-я\s\,\.\s\,\.]/, '' );
+            });
+        });
+        cloneIncomeItem.querySelectorAll( '[placeholder="Сумма"]' ).forEach( item => {
+            item.addEventListener( 'input', () => {
+                item.value = item.value.replace( /[^0-9]/g, '' );
+            });
+        });
+        
         incomeItems[0].parentNode.insertBefore( cloneIncomeItem, btnPlusIncome );
         incomeItems = document.querySelectorAll( '.income-items' );
         if ( incomeItems.length === 3 ) {
@@ -191,13 +211,11 @@ class AppData {
             if ( itemIncome !== '' && cashIncome !== '' ) {
                 this.expenses[itemIncome] = cashIncome;
             }
-    
         });
     
         for ( const key in this.income ) {
             this.incomeMonth += +this.income[key];
         }
-    
     }
     // Получить возможные расходы
     getAddExpenses () {
