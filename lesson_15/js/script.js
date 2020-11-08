@@ -147,7 +147,7 @@ class AppData {
     }
     // Блок обязательных расходов
     addExpensesBlock () {
-        let cloneExpensesItem = expensesItems[0].cloneNode( true ),
+        const cloneExpensesItem = expensesItems[0].cloneNode( true ),
             inputsCloneValue = cloneExpensesItem.querySelectorAll( 'input' );
     
         inputsCloneValue.forEach( input => input.value = '' );
@@ -160,7 +160,7 @@ class AppData {
     }
     // Блок обязательных расходов
     addIncomeBlock () {
-        let cloneIncomeItem = incomeItems[0].cloneNode( true ),
+        const cloneIncomeItem = incomeItems[0].cloneNode( true ),
             inputsCloneValue = cloneIncomeItem.querySelectorAll( 'input' );
     
         inputsCloneValue.forEach( input => input.value = '' );
@@ -174,7 +174,7 @@ class AppData {
     // Получаем обязательные расходы
     getExpenses () {
         expensesItems.forEach( item => {
-            let itemExpenses = item.querySelector( '.expenses-title' ).value,
+            const itemExpenses = item.querySelector( '.expenses-title' ).value,
                 cashExpenses = item.querySelector( '.expenses-amount' ).value;
     
             if ( itemExpenses !== '' && cashExpenses !== '' ) {
@@ -185,7 +185,7 @@ class AppData {
     // Получаем дополнительные доходы
     getIncome () {
         incomeItems.forEach( item => {
-            let itemIncome = item.querySelector( '.income-title' ).value,
+            const itemIncome = item.querySelector( '.income-title' ).value,
                 cashIncome = item.querySelector( '.income-amount' ).value;
             
             if ( itemIncome !== '' && cashIncome !== '' ) {
@@ -194,14 +194,14 @@ class AppData {
     
         });
     
-        for ( let key in this.income ) {
+        for ( const key in this.income ) {
             this.incomeMonth += +this.income[key];
         }
     
     }
     // Получить возможные расходы
     getAddExpenses () {
-        let addExpenses = additionalExpensesItem.value.split( ', ' );
+        const addExpenses = additionalExpensesItem.value.split( ', ' );
     
         addExpenses.forEach( item => {
             item = item.trim();
@@ -213,7 +213,7 @@ class AppData {
     // Получить дополнительные доходы
     getAddIncome () {
         additionalIncomeItem.forEach( item => {
-            let itemValue = item.value.trim();
+            const itemValue = item.value.trim();
             if ( itemValue !== '' ) {
                 this.addIncome.push( itemValue );
             }
@@ -221,7 +221,7 @@ class AppData {
     }
     // Cуммa всех обязательных расходов за месяц
     getExpensesMonth () {
-        for ( let key in this.expenses ) {
+        for ( const key in this.expenses ) {
             this.expensesMonth += +this.expenses[key];
         }
     }
@@ -279,7 +279,7 @@ class AppData {
         });
     
         // События
-        let startBind = this.start.bind( appData );
+        const startBind = this.start.bind( appData );
         startBtn.addEventListener( 'click', startBind  );
         salaryAmount.addEventListener( 'keyup', this.check  );
         btnPlusExpenses.addEventListener( 'click', this.addExpensesBlock  );
