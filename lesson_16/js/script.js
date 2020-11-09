@@ -90,8 +90,8 @@ class AppData {
         this.getExpensesMonth();
         this.getAddExpenses();
         this.getAddIncome();
-        this.getBudget();
         this.getInfoDeposit();
+        this.getBudget();
 
         this.showResult();
     }
@@ -249,7 +249,8 @@ class AppData {
     // Функция возвращает Накопления за месяц (Доходы минус расходы)
     getBudget () {
         const monthDeposit = this.moneyDeposit * ( this.percentDeposit / 100 );
-        this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+        this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
+        //this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + ( this.moneyDeposit * this.percentDeposit ) / 12;
         this.budgetDay = this.budgetMonth / 30;
     }
     // За сколько месяцев будет достигнута цель
@@ -270,12 +271,10 @@ class AppData {
     }
     // Есть ли депозит в банке
     getInfoDeposit () {
-
         if ( this.deposit ) {
             this.percentDeposit = depositPercent.value;
             this.moneyDeposit = depositAmount.value;
-        } 
-
+        }
     }
     calcPeriod () {
         return this.budgetMonth * periodSelect.value;
@@ -305,7 +304,7 @@ class AppData {
     depositHandler() {
 
         depositAmount.addEventListener( 'input', () => {
-            depositAmount.value = depositAmount.value.replace(/[^0-9]/g, '');
+            depositAmount.value = depositAmount.value.replace( /[^0-9]/g, '' );
         });
 
         if ( depositСheck.checked ) {
@@ -352,7 +351,6 @@ class AppData {
             depositPercent.value = depositPercent.value.replace( /[^0-9]/g, '' );
         });
     
-        // События
         const startBind = this.start.bind( this );
         startBtn.addEventListener( 'click', startBind  );
         salaryAmount.addEventListener( 'keyup', this.check  );

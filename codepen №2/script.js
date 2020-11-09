@@ -3,7 +3,7 @@
 Цель: Убрать все объекты с типом additional, а для basic очки уменьшить в двое.
 Cоздать новый массив, оставляя исходные данные неизменными */
 
-const myLesson2 = [
+const myLesson = [
     { lesson: 1, type: 'basic', points: 2 },
     { lesson: 2, type: 'additional', points: 4 },
     { lesson: 3, type: 'basic', points: 6 },
@@ -22,17 +22,9 @@ const myLesson2 = [
     { lesson: 16, type: 'additional', points: 7 },
 ];  
 
-const lessons2 = ( map ) => {
-
-    for ( let i = map.length - 1; i >= 0; i-- ) {
-        if ( map[i].type === "additional" ) {
-            map.splice( i, 1 );
-        }
-    }
-
-    map.forEach( item => item.points /= 2 );
-    map = new Array(...map);
-
-};
-lessons2( myLesson2 );
-console.log( myLesson2 );
+const array = myLesson
+    .filter( item => item.type === "basic" )
+    .map( item => { item.points = item.points / 2;
+        return item;
+    }); 
+console.log('array: ', array);
