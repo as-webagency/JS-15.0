@@ -48,5 +48,7 @@ window.addEventListener( 'DOMContentLoaded', () => {
     };
     countTimer( '15 November 2020' );
 
+    
+
 });
 
