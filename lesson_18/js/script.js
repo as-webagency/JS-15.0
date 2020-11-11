@@ -42,13 +42,8 @@ window.addEventListener( 'DOMContentLoaded', () => {
                 timerMinutes.textContent = '00';
                 timerSeconds.textContent = '00';
             }
-
-            if ( timer.timeRemaining > 0 ) {
-                setInterval( updateClock, 1000 );
-            }
-
         };
-        updateClock();
+        setInterval( updateClock, 1000 );
 
     };
     countTimer( '15 November 2020' );
