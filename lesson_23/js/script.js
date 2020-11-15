@@ -237,24 +237,18 @@ window.addEventListener( 'DOMContentLoaded', () => {
                 event.target.src = event.target.dataset.img;
             });
 
-            commandPhoto[index].addEventListener( 'mouseleave', event => {
-                event.target.src = teamFoto;
-            });
+            commandPhoto[index].addEventListener( 'mouseleave', event => event.target.src = teamFoto );
         });
     };
     ourTeam();
 
     // Calculator
-    const calc = () => {
-        const inputs = document.querySelectorAll( '.calc-block > input[type="text"]' );
+    const calc = ( price = 100 ) => {
+        const calcBlock = document.querySelector( '.calc-block' ),
+            calcInputs = calcBlock.querySelectorAll( 'input[type="text"]' );
         
-        inputs.forEach( item => {
-            item.addEventListener( 'input', () => {
-                item.value = item.value.replace( /[^0-9]/g, '' );
-            });
-        });
+        calcInputs.forEach( item => item.addEventListener( 'input', () => item.value = item.value.replace( /[^0-9]/g, '' )));
     };
-    calc();
+    calc( 100 );
 
 });
-
