@@ -54,11 +54,13 @@ window.addEventListener( 'DOMContentLoaded', () => {
     const toggleMenu = () => {
         const menu = document.querySelector( 'menu' ),
             body = document.querySelector( 'body' ),
-            navLink = menu.querySelectorAll( 'li a' );
+            navLink = menu.querySelectorAll( 'li a' ),
+            serviceBlockBtn = document.querySelector( 'a[href="#service-block"]' ),
+            idServiceBlock = document.getElementById( 'service-block' );
+            
 
         body.addEventListener( 'click', event => {
             let target = event.target;
-
             if ( target.closest( '.menu' ) ) menu.classList.add( 'active-menu' );
             else if ( target.classList.contains( 'close-btn' ) ) menu.classList.remove( 'active-menu' );
             else if ( target.tagName !== 'MENU' ) menu.classList.remove( 'active-menu' );
@@ -68,14 +70,26 @@ window.addEventListener( 'DOMContentLoaded', () => {
         navLink.forEach( ( item, index ) => {
             navLink[index].addEventListener( 'click', event => {
                 event.preventDefault();
-
                 const hrefId = event.target.getAttribute( 'href' ).substr( 1 );
                 document.getElementById( hrefId ).scrollIntoView({
                     behavior: 'smooth',
                     block: 'start',
                 });
             });
-        })
+        });
+
+        const scrollTo = ( element ) => {
+            window.scroll({
+                left: 0,
+                top: element.offsetTop,
+                behavior: 'smooth',
+            });
+        };
+
+        serviceBlockBtn.addEventListener( 'click', event => {
+            event.preventDefault();
+            scrollTo( idServiceBlock );
+        });
     };
     toggleMenu();
 
