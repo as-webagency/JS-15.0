@@ -274,5 +274,4 @@ window.addEventListener( 'DOMContentLoaded', () => {
         });
     };
     calc( 100 );
-
 });
