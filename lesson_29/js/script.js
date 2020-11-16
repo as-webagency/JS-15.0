@@ -53,21 +53,29 @@ window.addEventListener( 'DOMContentLoaded', () => {
     // Menu
     const toggleMenu = () => {
         const menu = document.querySelector( 'menu' ),
-            body = document.querySelector( 'body' );
+            body = document.querySelector( 'body' ),
+            navLink = menu.querySelectorAll( 'li a' );
 
-        body.addEventListener( 'click', ( event ) => {
+        body.addEventListener( 'click', event => {
             let target = event.target;
 
-            if ( target.closest( '.menu' ) ) {
-                menu.classList.add( 'active-menu' );
-            } else if ( target.classList.contains( 'close-btn' ) ) {
-                menu.classList.remove( 'active-menu' );
-            } else if ( target.tagName !== 'MENU' ) {
-                menu.classList.remove( 'active-menu' );
-            } else {
-                return;
-            }
+            if ( target.closest( '.menu' ) ) menu.classList.add( 'active-menu' );
+            else if ( target.classList.contains( 'close-btn' ) ) menu.classList.remove( 'active-menu' );
+            else if ( target.tagName !== 'MENU' ) menu.classList.remove( 'active-menu' );
+            else return;
         });
+
+        navLink.forEach( ( item, index ) => {
+            navLink[index].addEventListener( 'click', event => {
+                event.preventDefault();
+
+                const hrefId = event.target.getAttribute( 'href' ).substr( 1 );
+                document.getElementById( hrefId ).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
+            });
+        })
     };
     toggleMenu();
 
@@ -98,13 +106,10 @@ window.addEventListener( 'DOMContentLoaded', () => {
         popup.addEventListener( 'click', ( event ) => {
             let target = event.target;
 
-            if ( target.classList.contains( 'popup-close' ) ) {
-                popup.style.display = 'none';
-            } else {
+            if ( target.classList.contains( 'popup-close' ) ) popup.style.display = 'none';
+            else {
                 target = target.closest( '.popup-content' );
-                if ( !target ) {
-                    popup.style.display = 'none';
-                }
+                if ( !target ) popup.style.display = 'none';
             }
         });
     };
@@ -134,9 +139,7 @@ window.addEventListener( 'DOMContentLoaded', () => {
 
             if ( target ) {
                 tab.forEach( ( item, i ) => {
-                    if ( item  === target ) {
-                        toggleTabContent( i );
-                    }
+                    if ( item  === target ) toggleTabContent( i );
                 });
             }
         });
@@ -289,7 +292,7 @@ window.addEventListener( 'DOMContentLoaded', () => {
 
         allInputsForm.forEach( item => {
             item.setAttribute( 'required', true );
-            item.addEventListener( 'input', () => {
+            item.addEventListener( 'input', event => {
                 if ( item.name === 'user_name' ) item.value = item.value.replace( /[^а-яёА-ЯЁ\s]/gi, '' );
                 else if ( item.name === 'user_phone' ) item.value = item.value.replace( /[^0-9+]/gi, '' );
                 else if ( item.name === 'user_email' ) item.value = item.value.replace( /^[а-яёА-ЯЁ0-9._%+-]+@[а-яёА-ЯЁ0-9-]+.+.[а-яёА-ЯЁ]{2,4}$/gi, '' );
@@ -302,35 +305,39 @@ window.addEventListener( 'DOMContentLoaded', () => {
             item.addEventListener( 'submit', event => {
                 event.preventDefault();
                 item.appendChild( statusMessage );
-
-                setTimeout( () => statusMessage.textContent = '', 5000 );
+                
+                const formStatusMessage = () => statusMessage.textContent = '';
+                setTimeout( formStatusMessage, 5000 );
+                
                 statusMessage.textContent = loadMessage;
 
                 const formData = new FormData( item );
                 let body = {};
                 
                 formData.forEach( ( val, key ) => body[key] = val );
-
-                postData( body )
-                    .then( statusMessage.textContent = successMessage )
-                    .then( allInputsForm.forEach( item => item.value = '' ) )
-                    .catch( errorMessage => console.error( errorMessage ) );
+                
+                postData( body, () => {
+                    statusMessage.textContent = successMessage;
+                }, ( error ) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error( error );
+                });
             });
         });
 
-        const postData = ( body ) => {
-            return new Promise( ( resolve, reject ) => {
-                const request = new XMLHttpRequest();
-                request.addEventListener( 'readystatechange', () => {
-                    if ( request.readyState !== 4 ) return;
-                    if ( request.status === 200 ) resolve( request.status );
-                    else reject(request.status);
-                });
-
-                request.open( 'POST', './server.php' );
-                request.setRequestHeader( 'Content-Type', 'application/json' );
-                request.send( JSON.stringify( body ) );
+        const postData = ( body, outputData, errorData ) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener( 'readystatechange', () => {
+                if ( request.readyState !== 4 ) return;
+                if ( request.status === 200 ) {
+                    outputData();
+                    allInputsForm.forEach( item => item.value = '');
+                }
+                else errorData( request.status );
             });
+            request.open( 'POST', './server.php' );
+            request.setRequestHeader( 'Content-Type', 'application/json' );
+            request.send( JSON.stringify( body ) );
         };
     };
     sendFormsAjax();
