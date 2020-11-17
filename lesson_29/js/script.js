@@ -310,7 +310,7 @@ window.addEventListener( 'DOMContentLoaded', () => {
                 if ( item.name === 'user_name' ) item.value = item.value.replace( /[^а-яёА-ЯЁ\s]/gi, '' );
                 else if ( item.name === 'user_phone' ) item.value = item.value.replace( /[^0-9+]/gi, '' );
                 else if ( item.name === 'user_email' ) item.value = item.value.replace( /^[а-яёА-ЯЁ0-9._%+-]+@[а-яёА-ЯЁ0-9-]+.+.[а-яёА-ЯЁ]{2,4}$/gi, '' );
-                else if ( item.name === 'user_message' ) item.value = item.value.replace( /[^а-яёА-ЯЁ\s]/gi, '' );
+                else if ( item.name === 'user_message' ) item.value = item.value.replace( /[^а-яёА-ЯЁ\.\-\,\!\?\;:\s]/gi, '' );
                 else return;
             });
         });
