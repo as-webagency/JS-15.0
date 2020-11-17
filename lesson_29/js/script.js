@@ -330,28 +330,27 @@ window.addEventListener( 'DOMContentLoaded', () => {
                 
                 formData.forEach( ( val, key ) => body[key] = val );
                 
-                postData( body, () => {
-                    statusMessage.textContent = successMessage;
-                }, ( error ) => {
-                    statusMessage.textContent = errorMessage;
-                    console.error( error );
-                });
+                postData( body )
+                    .then( ( response ) => {
+                        if ( response.status !== 200 ) throw new Error('status network is not 200');
+                        statusMessage.textContent = successMessage;
+                    })
+                    .then( allInputsForm.forEach( ( item ) => item.value = '' ) )
+                    .catch( ( error ) => {
+                        statusMessage.textContent = errorMessage;
+                        console.error( error );
+                    });
             });
         });
 
-        const postData = ( body, outputData, errorData ) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener( 'readystatechange', () => {
-                if ( request.readyState !== 4 ) return;
-                if ( request.status === 200 ) {
-                    outputData();
-                    allInputsForm.forEach( item => item.value = '');
-                }
-                else errorData( request.status );
+        const postData = ( body ) => {
+            return fetch( './server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( body )
             });
-            request.open( 'POST', './server.php' );
-            request.setRequestHeader( 'Content-Type', 'application/json' );
-            request.send( JSON.stringify( body ) );
         };
     };
     sendFormsAjax();
