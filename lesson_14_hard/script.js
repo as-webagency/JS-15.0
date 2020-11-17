@@ -21,23 +21,28 @@ document.addEventListener( 'DOMContentLoaded', () => {
         `;
         document.body.prepend( div );
         
+        let parties = 0;
         const moveFunc = ( event ) => {
             console.log('event.code: ', event.code);
             if ( event.code === 'ArrowUp' ) {
-                div.style.top = 10 + 'px';
-            }
+                parties -= 10;
+                div.style.top = `${parties}px`;
+            } 
+            if ( event.code === 'ArrowDown' ) {
+                parties += 10;
+                div.style.top = `${parties}px`;
+            } 
             if ( event.code === 'ArrowRight' ) {
-                div.style.right = 10 + 'px';
+                parties += 10;
+                div.style.left = `${parties}px`;
             }
             if ( event.code === 'ArrowLeft' ) {
-                div.style.left = 10 + 'px';
-            }
-            if ( event.code === 'ArrowDown' ) {
-                div.style.bottom = 10 + 'px';
+                parties -= 10;
+                div.style.left = `${parties}px`;
             }
         };
 
-        document.addEventListener( 'keydown', moveFunc );
+        window.addEventListener( 'keydown', moveFunc );
     };
 
     const domElement = new DomElement( 100, 100, 'red', 'absolute' );
