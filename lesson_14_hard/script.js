@@ -2,7 +2,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
     'use strict';
 
     const body = document.querySelector( 'body' );
-
     function DomElement( height, width, background, position ) {
         this.height = height;
         this.width = width;
@@ -23,7 +22,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
         
         let parties = 0;
         const moveFunc = ( event ) => {
-            console.log('event.code: ', event.code);
             if ( event.code === 'ArrowUp' ) {
                 parties -= 10;
                 div.style.top = `${parties}px`;
@@ -41,8 +39,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
                 div.style.left = `${parties}px`;
             }
         };
-
-        window.addEventListener( 'keydown', moveFunc );
+        document.addEventListener( 'keydown', moveFunc );
     };
 
     const domElement = new DomElement( 100, 100, 'red', 'absolute' );
