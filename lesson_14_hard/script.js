@@ -20,23 +20,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
         `;
         document.body.prepend( div );
         
-        let parties = 0;
+        let partiesX = 0, partiesY = 0;
         const moveFunc = ( event ) => {
             if ( event.code === 'ArrowUp' ) {
-                parties -= 10;
-                div.style.top = `${parties}px`;
+                partiesX -= 10;
+                div.style.top = `${partiesX}px`;
             } 
             if ( event.code === 'ArrowDown' ) {
-                parties += 10;
-                div.style.top = `${parties}px`;
+                partiesX += 10;
+                div.style.top = `${partiesX}px`;
             } 
             if ( event.code === 'ArrowRight' ) {
-                parties += 10;
-                div.style.left = `${parties}px`;
+                partiesY += 10;
+                div.style.left = `${partiesY}px`;
             }
             if ( event.code === 'ArrowLeft' ) {
-                parties -= 10;
-                div.style.left = `${parties}px`;
+                partiesY -= 10;
+                div.style.left = `${partiesY}px`;
             }
         };
         document.addEventListener( 'keydown', moveFunc );
