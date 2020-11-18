@@ -1,0 +1,29 @@
+{
+  "name": "es6_to_es5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "babel-loader": "^8.0.6",
+    "path": "^0.12.7",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
+  },
+  "dependencies": {
+    "element-closest": "^3.0.2",
+    "es6-promise": "^4.2.8",
+    "fetch-polyfill": "^0.8.2",
+    "formdata-polyfill": "^3.0.20",
+    "nodelist-foreach-polyfill": "^1.2.0"
+  }
+}
