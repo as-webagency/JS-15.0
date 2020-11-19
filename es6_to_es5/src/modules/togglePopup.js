@@ -8,10 +8,10 @@ const togglePopup = () => {
         const loop = ( now ) => {
             let timePassed = now - startAnimate;
             popupContent.style.top = timePassed / 6 + "px";
-            if ( timePassed > 3000 ) return;
-            requestAnimationFrame( loop );
+            if ( timePassed > 300 ) return;
+            requestAnimationFrame( loop, 3000 );
         };
-        requestAnimationFrame( loop );
+        requestAnimationFrame( loop, 3000 );
     };
 
     popupBtn.forEach( item => {
