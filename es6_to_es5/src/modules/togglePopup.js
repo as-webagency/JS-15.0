@@ -7,11 +7,11 @@ const togglePopup = () => {
         let startAnimate = Date.now();
         const loop = ( now ) => {
             let timePassed = now - startAnimate;
-            popupContent.style.top = timePassed / 6 + "px";
-            if ( timePassed > 300 ) return;
-            requestAnimationFrame( loop, 3000 );
+            popupContent.style.top = timePassed / 4 * 2 + "px";
+            if ( timePassed > 1000 ) return;
+            requestAnimationFrame( loop );
         };
-        requestAnimationFrame( loop, 3000 );
+        requestAnimationFrame( loop );
     };
 
     popupBtn.forEach( item => {
