@@ -104,8 +104,8 @@ window.addEventListener( 'DOMContentLoaded', () => {
             let startAnimate = performance.now();
             const loop = ( now ) => {
                 let timePassed = now - startAnimate;
-                popupContent.style.top = timePassed / 6 + "px";
-                if ( timePassed > 3000 ) return;
+                popupContent.style.top = timePassed / 4 * 2 + "px";
+                if ( timePassed > 1000 ) return;
                 requestAnimationFrame( loop );
             };
             requestAnimationFrame( loop );
