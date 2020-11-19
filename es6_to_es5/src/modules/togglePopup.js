@@ -5,11 +5,13 @@ const togglePopup = () => {
 
     const popupAnimate = () => {
         let startAnimate = Date.now();
-        let idInterval = setInterval( () => {
-            let timePassed = Date.now() - startAnimate;
-            popupContent.style.top = timePassed / 7 + 'px';
-            if ( timePassed > 3000 ) clearInterval( idInterval );
-        }, 30);
+        const loop = ( now ) => {
+            let timePassed = now - startAnimate;
+            popupContent.style.top = timePassed / 6 + "px";
+            if ( timePassed > 3000 ) return;
+            requestAnimationFrame( loop );
+        };
+        requestAnimationFrame( loop );
     };
 
     popupBtn.forEach( item => {

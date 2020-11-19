@@ -18,6 +18,7 @@ const countTimer = ( deadLine ) => {
 
     const updateClock = () => {
         const timer = getTimeRemaining();
+        idInterval = requestAnimationFrame( updateClock, 1000 );
 
         timerHours.textContent = timer.hours;
         timerMinutes.textContent = timer.minutes;
@@ -36,13 +37,13 @@ const countTimer = ( deadLine ) => {
         }
         
         if ( timer.hours < 0 || timer.minutes < 0 || timer.seconds < 0 ) {
-            clearInterval( idInterval );
+            cancelAnimationFrame( idInterval );
             timerHours.textContent = '00';
             timerMinutes.textContent = '00';
             timerSeconds.textContent = '00';
         }
     };
-    idInterval = setInterval( updateClock, 1000 );
+    idInterval = requestAnimationFrame( updateClock, 1000 );
 };
 
 export default countTimer;
