@@ -22,6 +22,7 @@ window.addEventListener( 'DOMContentLoaded', () => {
 
         const updateClock = () => {
             const timer = getTimeRemaining();
+            idInterval = requestAnimationFrame( updateClock, 1000 );
 
             timerHours.textContent = timer.hours;
             timerMinutes.textContent = timer.minutes;
@@ -40,13 +41,13 @@ window.addEventListener( 'DOMContentLoaded', () => {
             }
             
             if ( timer.hours < 0 || timer.minutes < 0 || timer.seconds < 0 ) {
-                clearInterval( idInterval );
+                cancelAnimationFrame( idInterval );
                 timerHours.textContent = '00';
                 timerMinutes.textContent = '00';
                 timerSeconds.textContent = '00';
             }
         };
-        idInterval = setInterval( updateClock, 1000 );
+        idInterval = requestAnimationFrame( updateClock, 1000 );
     };
     countTimer( '20 November 2020' );
 
@@ -100,12 +101,14 @@ window.addEventListener( 'DOMContentLoaded', () => {
             popupContent = document.querySelector( '.popup > .popup-content' );
 
         const popupAnimate = () => {
-            let startAnimate = Date.now();
-            let idInterval = setInterval( () => {
-                let timePassed = Date.now() - startAnimate;
-                popupContent.style.top = timePassed / 7 + 'px';
-                if ( timePassed > 3000 ) clearInterval( idInterval );
-            }, 30);
+            let startAnimate = performance.now();
+            const loop = ( now ) => {
+                let timePassed = now - startAnimate;
+                popupContent.style.top = timePassed / 6 + "px";
+                if ( timePassed > 3000 ) return;
+                requestAnimationFrame( loop );
+            };
+            requestAnimationFrame( loop );
         };
 
         popupBtn.forEach( item => {
