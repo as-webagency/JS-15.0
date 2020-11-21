@@ -1,7 +1,6 @@
 document.addEventListener( 'DOMContentLoaded', () => {
     'use strict';
 
-    let result = 0;
     class Calculator {
         constructor () {
             this.inputA = document.getElementById( 'a' );
