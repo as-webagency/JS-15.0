@@ -1,16 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    select.addEventListener( 'change', () => {
-        let body = {};
-        postData( body )
-            //.then( success => console.log( success ) )
-            .then( postData )
-            .catch( error => console.error( error ) );
-    });
+    const select = document.getElementById( 'cars' ),
+        output = document.getElementById( 'output' );
 
-    const postData = ( body ) => {
-        return new Promise( ( resolve, reject ) => {
+    select.addEventListener( 'change', () => {
+        return new Promise( () => {
             const request = new XMLHttpRequest();
             request.addEventListener( 'readystatechange', () => {
                 if ( request.readyState === 4 && request.status === 200 ) {
@@ -23,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 }
-                else reject( output.innerHTML = 'Произошла ошибка' );
+                else output.innerHTML = 'Произошла ошибка';
             });
             request.open( 'GET', './cars.json' );
             request.setRequestHeader( 'Content-Type', 'application/json' );
-            request.send( JSON.stringify( body ) );
+            request.send();
         });
-    };
+    });
 
 });
